@@ -1,9 +1,7 @@
-
-
 export default function Home() {
   return (
-    <main >
-      <h1>فيزو لصناعة وتجارة الألبسة</h1>
-    </main>
+    <div className="flex flex-col items-center">
+      <h1>الرئيسية</h1>
+    </div>
   );
 }
