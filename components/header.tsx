@@ -3,6 +3,7 @@ import { ModeToggle } from "./mode-toggle";
 import { NavbarDrawer } from "./navbar-drawer";
 import Image from "next/image";
 import Link from "next/link";
+import { ShoppingCartButton } from "./shoppingCartButton";
 
 const cairoPlay = Cairo_Play({ subsets: ["arabic"] });
 
@@ -28,6 +29,7 @@ export function Header() {
           </div>
         </Link>
         <div className="flex justify-between align-middle items-center gap-3">
+          <ShoppingCartButton />
           <ModeToggle />
           <NavbarDrawer />
         </div>
