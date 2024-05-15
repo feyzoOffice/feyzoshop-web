@@ -17,7 +17,7 @@ import { NavMenu } from "./nav-menu";
 export function NavbarDrawer() {
   return (
     <Drawer shouldScaleBackground>
-      <DrawerTrigger>
+      <DrawerTrigger asChild>
         <Button variant="outline" size="icon">
           <MenuIcon />
         </Button>
