@@ -18,7 +18,9 @@ export function NavbarDrawer() {
   return (
     <Drawer shouldScaleBackground>
       <DrawerTrigger>
-        <MenuIcon size={44} />
+        <Button variant="outline" size="icon">
+          <MenuIcon />
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="flex flex-col justify-center items-center">
