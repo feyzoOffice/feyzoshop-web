@@ -42,7 +42,7 @@ export function NavbarDrawer() {
           <NavMenu />
         </div>
         <DrawerFooter>
-          <DrawerClose>
+          <DrawerClose asChild>
             <Button variant="outline" size="icon">
               <X className="h-4 w-4" />
             </Button>
