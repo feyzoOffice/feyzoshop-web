@@ -2,46 +2,31 @@
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import { DrawerClose } from "./ui/drawer";
+import NavigationLink from "./nav-link";
 
 export function NavMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex flex-col gap-2 w-full">
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <DrawerClose>الرئيسية</DrawerClose>
-            </NavigationMenuLink>
-          </Link>
+          <NavigationLink href="/">الرئيسية</NavigationLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/products" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <DrawerClose>المنتجات</DrawerClose>
-            </NavigationMenuLink>
-          </Link>
+          <NavigationLink href="/products">المنتجات</NavigationLink>
         </NavigationMenuItem>
-
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <DrawerClose>حول</DrawerClose>
-            </NavigationMenuLink>
-          </Link>
+          <NavigationLink href="/about">حول</NavigationLink>
         </NavigationMenuItem>
-
         <NavigationMenuItem>
-          <Link href="/contact-us" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <DrawerClose>إتصل بنا</DrawerClose>
-            </NavigationMenuLink>
-          </Link>
+          <NavigationLink href="/contact-us">إتصل بنا</NavigationLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationLink href="/login">تسجيل الدخول</NavigationLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationLink href="/admin">لوحة التحكم</NavigationLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
