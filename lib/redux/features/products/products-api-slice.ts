@@ -1,14 +1,15 @@
 // Need to use the React-specific entry point to import `createApi`
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { supabase } from "@/lib/supabase";
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface Product {
   id: number;
-  quote: string;
+  name: string;
   author: string;
 }
 
-interface ProductApiResponse {
-  quotes: Product[];
+interface ProductsApiResponse {
+  products: Product[];
   total: number;
   skip: number;
   limit: number;
@@ -16,18 +17,27 @@ interface ProductApiResponse {
 
 // Define a service using a base URL and expected endpoints
 export const productsApiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/quotes" }),
+  baseQuery: fakeBaseQuery(),
   reducerPath: "productsApi",
   // Tag types are used for caching and invalidation.
   tagTypes: ["Products"],
-  endpoints: (build) => ({
+  endpoints: (builder) => ({
     // Supply generics for the return type (in this case `QuotesApiResponse`)
     // and the expected query argument. If there is no argument, use `void`
     // for the argument type instead.
-    getProducts: build.query<ProductApiResponse, number>({
-      query: (limit = 10) => `?limit=${limit}`,
+    getProducts: builder.query({
+      queryFn: async () => {
+        const { data, error } = await supabase
+          .from("products")
+          .select("id, name")
+          .eq("done", false);
+        if (error) {
+          throw { error };
+        }
+        return { data };
+      },
       // `providesTags` determines which 'tag' is attached to the
-      // cached data returned by the query.
+      // // cached data returned by the query.
       providesTags: (result, error, id) => [{ type: "Products", id }],
     }),
   }),
