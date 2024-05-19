@@ -1,7 +1,8 @@
 // Need to use the React-specific entry point to import `createApi`
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const supabase = createClient();
 interface Product {
   id: number;
   name: string;

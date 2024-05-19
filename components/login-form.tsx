@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,6 +20,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { createClient } from "@/lib/supabase/client";
+import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useToast } from "./ui/use-toast";
 
 const formSchema = z.object({
   email: z
@@ -35,6 +39,10 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const supabase = createClient();
+  const { toast } = useToast();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,12 +56,31 @@ export function LoginForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     try {
+      setIsLoading(true);
       let { data, error } = await supabase.auth.signInWithPassword({
         email: values.email,
         password: values.password,
       });
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "تسجيل الدخول",
+          description: "خطأ في الإيميل أو كلمة المرور",
+        });
+      }
+      if (data.user === null) {
+        setIsLoading(false);
+      }
+      if (data.user) {
+        setIsLoading(false);
+        toast({
+          title: "تسجيل الدخول",
+          description: "تم تسجيل الدخول بنجاح",
+        });
+        router.refresh();
+      }
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
     }
   };
   return (
@@ -72,11 +99,7 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>الإيميل</FormLabel>
                   <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="example@email.com"
-                      {...field}
-                    />
+                    <Input placeholder="example@email.com" {...field} />
                   </FormControl>
                   <FormDescription>أدخل كلمة المرور هنا</FormDescription>
                   <FormMessage />
@@ -98,7 +121,10 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">تسجيل الدخول</Button>
+            <Button type="submit" disabled={isLoading}>
+              تسجيل الدخول
+              {isLoading && <Loader className="animate-spin" />}
+            </Button>
           </form>
         </Form>
       </CardContent>
