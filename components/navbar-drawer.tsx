@@ -1,4 +1,4 @@
-import { MenuIcon, X } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import {
   Drawer,
   DrawerClose,
@@ -15,6 +15,7 @@ import Link from "next/link";
 import { NavMenu } from "./nav-menu";
 
 export function NavbarDrawer() {
+  const date = new Date();
   return (
     <Drawer shouldScaleBackground>
       <DrawerTrigger asChild>
@@ -42,11 +43,10 @@ export function NavbarDrawer() {
           <NavMenu />
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline" size="icon">
-              <X className="h-4 w-4" />
-            </Button>
-          </DrawerClose>
+          <DrawerDescription className="text-xs">
+            &copy; {date.getFullYear()} جميع الحقوق محفوظة - فيزو لصناعة وتجارة
+            الألبسة
+          </DrawerDescription>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
