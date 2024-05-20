@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Header } from "@/components/header";
 import { StoreProvider } from "@/providers/store-provider";
 import "./globals.css";
+import { Footer } from "@/components/footer";
 
 const cairo = Cairo({ subsets: ["arabic"] });
 
@@ -29,7 +30,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <main>{children}</main>
+            <main className="h-screen">{children}</main>
+            <Footer />
             <Toaster />
           </ThemeProvider>
         </body>
