@@ -1,7 +1,7 @@
 "use client";
-import { useGetProductsQuery } from "@/lib/redux/features/products/products-api-slice";
+import { useGetProductsQuery } from "@/lib/redux/features/products/products-slice";
 export default function Products() {
-  const { data, isError, isLoading, isSuccess } = useGetProductsQuery(1);
+  const { data, isError, isLoading, isSuccess, error } = useGetProductsQuery();
 
   if (isError) {
     return (

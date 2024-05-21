@@ -1,3 +1,4 @@
+import { SignedIn, UserButton } from "@clerk/nextjs";
 import { Cairo_Play } from "next/font/google";
 import { ModeToggle } from "./mode-toggle";
 import { NavbarDrawer } from "./navbar-drawer";
@@ -29,6 +30,9 @@ export function Header() {
           </div>
         </Link>
         <div className="flex justify-between align-middle items-center gap-3">
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           <ShoppingCartButton />
           <ModeToggle />
           <NavbarDrawer />

@@ -1,4 +1,7 @@
 "use client";
+
+import { SignedIn, SignedOut, useSession } from "@clerk/nextjs";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,6 +10,8 @@ import {
 import NavigationLink from "./nav-link";
 
 export function NavMenu() {
+  const { session } = useSession();
+  const isClient = session?.user.unsafeMetadata.role === "client";
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex flex-col gap-2 w-full">
@@ -23,11 +28,19 @@ export function NavMenu() {
           <NavigationLink href="/contact-us">إتصل بنا</NavigationLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationLink href="/login">تسجيل الدخول</NavigationLink>
+          <SignedOut>
+            <NavigationMenuItem>
+              <NavigationLink href="/sign-in">تسجيل الدخول</NavigationLink>
+            </NavigationMenuItem>
+          </SignedOut>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationLink href="/admin">لوحة التحكم</NavigationLink>
-        </NavigationMenuItem>
+        <SignedIn>
+          {!isClient && (
+            <NavigationMenuItem>
+              <NavigationLink href="/dashboard">لوحة التحكم</NavigationLink>
+            </NavigationMenuItem>
+          )}
+        </SignedIn>
       </NavigationMenuList>
     </NavigationMenu>
   );
