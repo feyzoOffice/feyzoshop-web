@@ -13,18 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Product[]
+model Photo {
+  id        Int      @id @default(autoincrement())
+  url       String
+  createdAt DateTime @default(now())
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+}
+
+model Size {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Group {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Sex {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  products  Product[]
 }
 
 model Product {
-  id        Int     @id @default(autoincrement())
-  name     String
-  description   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  id          Int      @id @default(autoincrement())
+  name        String
+  photos      Photo[]
+  description String
+  sizes       Size[]
+  gruop       Group    @relation(fields: [groupId], references: [id])
+  groupId     Int      @unique
+  sex         Sex      @relation(fields: [sexId], references: [id])
+  sexId       Int      @unique
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  Int      @unique
+  published   Boolean  @default(false)
+  userEmail   String
 }
