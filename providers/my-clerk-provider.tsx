@@ -11,7 +11,6 @@ type Props = {
 
 export default function MyClerkProvider({ children }: Props) {
   const { theme } = useTheme();
-
   return (
     <ClerkProvider
       localization={arSA}
@@ -21,7 +20,7 @@ export default function MyClerkProvider({ children }: Props) {
           socialButtonsVariant: "iconButton",
           termsPageUrl: "https://clerk.com/terms",
         },
-        baseTheme: dark,
+        baseTheme: theme === "dark" ? dark : undefined,
       }}
     >
       {children}

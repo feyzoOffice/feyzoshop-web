@@ -24,24 +24,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <MyClerkProvider>
-      <StoreProvider>
-        <html lang="ar" dir="rtl" suppressHydrationWarning>
-          <body className={cairo.className}>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            >
+    <StoreProvider>
+      <html lang="ar" dir="rtl" suppressHydrationWarning>
+        <body className={cairo.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <MyClerkProvider>
               <Header />
               <main className="h-screen">{children}</main>
               <Footer />
               <Toaster />
-            </ThemeProvider>
-          </body>
-        </html>
-      </StoreProvider>
-    </MyClerkProvider>
+            </MyClerkProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
