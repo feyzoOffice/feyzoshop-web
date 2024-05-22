@@ -1,20 +1,7 @@
 // Need to use the React-specific entry point to import `createApi`
 // import { createClient } from "@/lib/supabase/client";
+import { prisma } from "@/lib/prisma";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-
-// const supabase = createClient();
-interface Product {
-  id: number;
-  name: string;
-  author: string;
-}
-
-interface ProductsResponse {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
-}
 
 // Define a service using a base URL and expected endpoints
 export const productsSlice = createApi({
@@ -27,18 +14,9 @@ export const productsSlice = createApi({
     // and the expected query argument. If there is no argument, use `void`
     // for the argument type instead.
     getProducts: builder.query({
-      queryFn: async (category: string) => {
-        const { data, error } = await supabase
-          .from("products")
-          .select(
-            "id, name, photos, description, category, sub_category, in_stock"
-          );
-
-        if (error) {
-          console.log(error);
-          // throw { error };
-        }
-        console.log(data);
+      queryFn: async () => {
+        const db = await prisma.$connect();
+        const data = await prisma.product.findMany();
         return { data };
       },
       // `providesTags` determines which 'tag' is attached to the

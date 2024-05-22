@@ -2,7 +2,7 @@
 import { useGetProductsQuery } from "@/lib/redux/features/products/products-slice";
 export default function Products() {
   const { data, isError, isLoading, isSuccess, error } = useGetProductsQuery();
-
+  console.log(error);
   if (isError) {
     return (
       <div>
