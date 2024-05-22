@@ -1,26 +1,17 @@
 // Need to use the React-specific entry point to import `createApi`
-// import { createClient } from "@/lib/supabase/client";
 
-import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Define a service using a base URL and expected endpoints
 export const productsSlice = createApi({
-  baseQuery: fakeBaseQuery(),
-  reducerPath: "products",
-  // Tag types are used for caching and invalidation.
-  tagTypes: ["Products"],
+  reducerPath: "Products",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://fakestoreapi.com" }),
   endpoints: (builder) => ({
-    // Supply generics for the return type (in this case `QuotesApiResponse`)
-    // and the expected query argument. If there is no argument, use `void`
-    // for the argument type instead.
     getProducts: builder.query({
-      queryFn: async () => {
-        const data = { product: {} };
-        return { data };
-      },
-      // `providesTags` determines which 'tag' is attached to the
-      // // cached data returned by the query.
-      providesTags: (result, error, id) => [{ type: "Products", id }],
+      query: () => `products`,
+    }),
+    getProductBySlug: builder.query({
+      query: (id: number) => `products/${id}`,
     }),
   }),
 });

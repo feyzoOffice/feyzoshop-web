@@ -35,7 +35,7 @@ export default function RootLayout({
           >
             <MyClerkProvider>
               <Header />
-              <main className="h-screen">{children}</main>
+              <main>{children}</main>
               <Footer />
               <Toaster />
             </MyClerkProvider>

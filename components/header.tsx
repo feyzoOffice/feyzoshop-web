@@ -11,7 +11,7 @@ const cairoPlay = Cairo_Play({ subsets: ["arabic"] });
 export function Header() {
   return (
     <div className="mt-3 flex flex-col items-center">
-      <div className="flex justify-between items-center w-4/5 md:w-5/6">
+      <div className="flex justify-between items-center mt-3 w-4/5 md:w-5/6">
         <Link href="/">
           <div className="flex items-center gap-2">
             <div>
