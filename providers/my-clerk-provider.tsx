@@ -1,7 +1,8 @@
 "use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { arSA } from "@clerk/localizations";
+// import { arSA } from "@clerk/localizations";
+import { arSA } from "@/lib/clerk-ar";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 

@@ -28,7 +28,7 @@ export function ProductCard({
         <CardTitle className="text-wrap">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <Image alt={title} src={image} width={200} height={200} />
+        <Image alt={title} src={image} width={300} height={200} />
       </CardContent>
       <CardFooter>
         <Button>أضف إلى السلة</Button>
