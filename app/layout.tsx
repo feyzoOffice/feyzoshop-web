@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 
+import NextTopLoader from "nextjs-toploader";
+
 import { ThemeProvider } from "@/providers/theme-provider";
 import { StoreProvider } from "@/providers/store-provider";
 import MyClerkProvider from "@/providers/my-clerk-provider";
@@ -27,6 +29,18 @@ export default function RootLayout({
     <StoreProvider>
       <html lang="ar" dir="rtl" suppressHydrationWarning>
         <body className={cairo.className}>
+          <NextTopLoader
+            color="hsl(47.9 95.8% 53.1%)"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            zIndex={1600}
+            showAtBottom={false}
+          />
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
