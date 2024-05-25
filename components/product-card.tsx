@@ -8,6 +8,9 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { addToCart } from "@/lib/redux/features/cart/cart-slice";
+import { toast } from "./ui/use-toast";
 
 export function ProductCard({
   image,
@@ -22,6 +25,31 @@ export function ProductCard({
   price: number;
   id: number;
 }) {
+  const dispatch = useAppDispatch();
+
+  const AddToCartHandler = () => {
+    try {
+      const item = {
+        id,
+        image,
+        price,
+        qty: 1,
+        title,
+      };
+      //
+
+      dispatch(addToCart(item));
+
+      toast({
+        description: "تم الإضافة إلى السلة بنجاح",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        description: error,
+      });
+    }
+  };
   return (
     <Card>
       <CardHeader>
@@ -31,7 +59,7 @@ export function ProductCard({
         <Image alt={title} src={image} width={300} height={200} />
       </CardContent>
       <CardFooter>
-        <Button>أضف إلى السلة</Button>
+        <Button onClick={AddToCartHandler}>أضف إلى السلة</Button>
       </CardFooter>
     </Card>
   );

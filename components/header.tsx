@@ -4,7 +4,7 @@ import { ModeToggle } from "./mode-toggle";
 import { NavbarDrawer } from "./navbar-drawer";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCartButton } from "./shoppingCartButton";
+import { ShoppingCartButton } from "./shopping-cart-button";
 
 const cairoPlay = Cairo_Play({ subsets: ["arabic"] });
 

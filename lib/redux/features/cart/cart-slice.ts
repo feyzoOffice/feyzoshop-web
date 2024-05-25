@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const CartSlice = createSlice({
-  name: "cartSlice",
+export const cartSlice = createSlice({
+  name: "cart",
   initialState: {
     cart: JSON.parse(localStorage.getItem("cart") as string) || [],
   },
@@ -27,7 +27,7 @@ export const CartSlice = createSlice({
       state.cart = [...state.cart, action.payload];
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    incrementReducer: (state, action) => {
+    increment: (state, action) => {
       const newArray = state.cart.map((cur: any) => {
         if (cur.id === action.payload) {
           cur.qty = cur.qty + 1;
@@ -39,7 +39,7 @@ export const CartSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(newArray));
       return;
     },
-    decrementReducder: (state, action) => {
+    decrement: (state, action) => {
       const exist = state.cart.find((cur: any) => cur.id === action.payload);
 
       if (exist) {
@@ -69,7 +69,7 @@ export const CartSlice = createSlice({
         return;
       }
     },
-    deleteItemReducer: (state, action) => {
+    deleteItem: (state, action) => {
       const newArray = state.cart.filter(
         (cur: any) => cur.id !== action.payload
       );
@@ -81,9 +81,5 @@ export const CartSlice = createSlice({
   },
 });
 
-export const {
-  addToCart,
-  incrementReducer,
-  decrementReducder,
-  deleteItemReducer,
-} = CartSlice.actions;
+export const { addToCart, increment, decrement, deleteItem } =
+  cartSlice.actions;
