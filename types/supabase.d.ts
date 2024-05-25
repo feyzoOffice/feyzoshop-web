@@ -9,39 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      Product: {
-        Row: {
-          categoryId: number;
-          description: string;
-          groupId: number;
-          id: number;
-          name: string;
-          published: boolean;
-          sexId: number;
-          userEmail: string;
-        };
-        Insert: {
-          categoryId: number;
-          description: string;
-          groupId: number;
-          id?: number;
-          name: string;
-          published?: boolean;
-          sexId: number;
-          userEmail: string;
-        };
-        Update: {
-          categoryId?: number;
-          description?: string;
-          groupId?: number;
-          id?: number;
-          name?: string;
-          published?: boolean;
-          sexId?: number;
-          userEmail?: string;
-        };
-        Relationships: [];
-      };
+      [_ in never]: never;
     };
     Views: {
       [_ in never]: never;
