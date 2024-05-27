@@ -6,7 +6,7 @@ import {
   decrement,
   deleteItem,
   increment,
-} from "@/lib/redux/features/cart/cart-slice";
+} from "@/lib/redux/slices/cart/cart-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import Image from "next/image";
 

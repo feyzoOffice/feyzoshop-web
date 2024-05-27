@@ -1,7 +1,7 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { productsSlice } from "./features/products/products-slice";
-import { cartSlice } from "./features/cart/cart-slice";
+import { productsSlice } from "./slices/products/products-slice";
+import { cartSlice } from "./slices/cart/cart-slice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.

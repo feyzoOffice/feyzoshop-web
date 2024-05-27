@@ -9,7 +9,167 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never;
+      categories: {
+        Row: {
+          created_at: string;
+          id: number;
+          title: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          title?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          title?: string | null;
+        };
+        Relationships: [];
+      };
+      classes: {
+        Row: {
+          created_at: string;
+          id: number;
+          title: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          title?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          title?: string | null;
+        };
+        Relationships: [];
+      };
+      colors: {
+        Row: {
+          created_at: string;
+          id: number;
+          products_ids: number[] | null;
+          title: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          products_ids?: number[] | null;
+          title?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          products_ids?: number[] | null;
+          title?: string | null;
+        };
+        Relationships: [];
+      };
+      images: {
+        Row: {
+          created_at: string;
+          id: number;
+          product_id: number | null;
+          url: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          product_id?: number | null;
+          url?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          product_id?: number | null;
+          url?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "images_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      products: {
+        Row: {
+          category_id: number;
+          class_id: number;
+          colors: number[];
+          created_at: string;
+          description: string;
+          id: number;
+          images: number[];
+          in_stock: boolean;
+          sizes: number[];
+          title: string;
+        };
+        Insert: {
+          category_id: number;
+          class_id: number;
+          colors: number[];
+          created_at?: string;
+          description: string;
+          id?: number;
+          images: number[];
+          in_stock: boolean;
+          sizes: number[];
+          title: string;
+        };
+        Update: {
+          category_id?: number;
+          class_id?: number;
+          colors?: number[];
+          created_at?: string;
+          description?: string;
+          id?: number;
+          images?: number[];
+          in_stock?: boolean;
+          sizes?: number[];
+          title?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "products_class_id_fkey";
+            columns: ["class_id"];
+            isOneToOne: false;
+            referencedRelation: "classes";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      sizes: {
+        Row: {
+          created_at: string;
+          id: number;
+          products_ids: number[] | null;
+          size: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          products_ids?: number[] | null;
+          size: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          products_ids?: number[] | null;
+          size?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;

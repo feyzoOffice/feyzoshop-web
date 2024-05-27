@@ -1,17 +1,14 @@
 // Need to use the React-specific entry point to import `createApi`
 
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getProducts } from "./actions";
 
-// Define a service using a base URL and expected endpoints
 export const productsSlice = createApi({
   reducerPath: "Products",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://fakestoreapi.com" }),
+  baseQuery: fakeBaseQuery(),
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => `products`,
-    }),
-    getProductBySlug: builder.query({
-      query: (id: number) => `products/${id}`,
+      queryFn: getProducts,
     }),
   }),
 });

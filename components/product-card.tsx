@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useAppDispatch } from "@/lib/redux/hooks";
-import { addToCart } from "@/lib/redux/features/cart/cart-slice";
+import { addToCart } from "@/lib/redux/slices/cart/cart-slice";
 import { toast } from "./ui/use-toast";
 
 export function ProductCard({
