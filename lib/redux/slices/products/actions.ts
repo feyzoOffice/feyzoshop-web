@@ -4,19 +4,14 @@ const supabase = createClient();
 
 export const getProducts = async () => {
   try {
-    const { data: products, error: productsError } = await supabase
+    const { data: products } = await supabase
       .from("products")
       .select("*, categories(title), classes(title)");
 
-    const { data: imagesData, error: imagesError } = await supabase
-      .from("images")
-      .select("*");
-    const { data: colorsData, error: colorsError } = await supabase
-      .from("colors")
-      .select("*");
-    const { data: sizesData, error: sizesError } = await supabase
-      .from("sizes")
-      .select("*");
+    const { data: imagesData } = await supabase.from("images").select("*");
+    const { data: colorsData } = await supabase.from("colors").select("*");
+    const { data: sizesData } = await supabase.from("sizes").select("*");
+
     const productsWithNestedImages = products?.map((product) => {
       const images = imagesData?.filter((image) =>
         product.images.includes(image.id)
