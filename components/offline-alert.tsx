@@ -2,7 +2,7 @@
 
 import useNetworkStatus from "@/hooks/use-network-status";
 
-export function OfflineAlert() {
+export default function OfflineAlert() {
   const { isOnline } = useNetworkStatus();
   if (!isOnline) {
     return (

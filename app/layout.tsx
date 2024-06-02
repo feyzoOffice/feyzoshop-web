@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 
+import dynamic from "next/dynamic";
+
 import NextTopLoader from "nextjs-toploader";
 
 import { ThemeProvider } from "@/providers/theme-provider";
@@ -8,7 +10,6 @@ import { StoreProvider } from "@/providers/store-provider";
 import MyClerkProvider from "@/providers/my-clerk-provider";
 
 import { Header } from "@/components/header";
-import { OfflineAlert } from "@/components/offline-alert";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/footer";
 
@@ -20,6 +21,10 @@ export const metadata: Metadata = {
   title: "فيزو لصناعة وتجارة الألبسة",
   description: "فيزو لصناعة وتجارة الألبسة",
 };
+
+const OfflineAlert = dynamic(() => import("../components/offline-alert"), {
+  ssr: false,
+});
 
 export default function RootLayout({
   children,
