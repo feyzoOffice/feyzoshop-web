@@ -8,6 +8,7 @@ import { StoreProvider } from "@/providers/store-provider";
 import MyClerkProvider from "@/providers/my-clerk-provider";
 
 import { Header } from "@/components/header";
+import { OfflineAlert } from "@/components/offline-alert";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/footer";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <OfflineAlert />
             <MyClerkProvider>
               <Header />
               <main>{children}</main>
