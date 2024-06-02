@@ -7,7 +7,7 @@ export type Options = {
   class_id: number | undefined;
   colors: number[];
   sizes: number[];
-  search: string;
+  search: string | undefined;
   limit: number | undefined;
 };
 
@@ -19,20 +19,29 @@ export const getProducts = async (options?: Options) => {
     // query = options?.locale
     //   ? query.match({ locale: options.locale })
     //   : query.match({}).is("locale", null);
+
+    if (options?.search) {
+      query = query.textSearch("description", options.search, {
+        type: "websearch",
+      });
+      // query = query.like("description", `%${options.search}%`);
+    }
     if (options?.category_id) {
       query = query.eq("category_id", options.category_id);
     }
+
     if (options?.class_id) {
       query = query.eq("class_id", options.class_id);
     }
-    if (options?.colors) {
-      query = query.contains("colors", options.colors);
+    if (options?.colors && options.sizes.length > 0) {
+      query = query.in("colors", options.colors);
     }
-    if (options?.sizes) {
-      query = query.contains("sizes", options.sizes);
+    if (options?.sizes && options.sizes.length > 0) {
+      query = query.in("sizes", options.sizes);
     }
+
     // execute the query
-    const { data: products, error } = await query.limit(options?.limit || 9);
+    const { data: products } = await query.limit(options?.limit || 9);
 
     const { data: imagesData } = await supabase.from("images").select("*");
     // const { data: colorsData } = await supabase.from("colors").select("*");

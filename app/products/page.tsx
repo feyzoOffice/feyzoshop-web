@@ -2,7 +2,7 @@
 
 import { ProductCard } from "@/components/product-card";
 import { useGetProductsQuery } from "@/lib/redux/slices/products/products-slice";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { Options } from "@/lib/redux/slices/products/actions";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ProductFilters } from "@/components/products-filters";
@@ -35,15 +35,12 @@ export default function Products() {
     class_id: Number(searchParams.get("class_id")),
     colors: Array(Number(searchParams.get("colors"))),
     sizes: Array(Number(searchParams.get("sizes"))),
-    search: "",
-    limit: undefined,
+    search: searchParams.get("search") || undefined,
+    limit: Number(searchParams.get("limit")),
   };
-  useEffect(() => {
-    router.push(pathname + "?" + createQueryString("limit", "9"));
-  }, []);
-  useEffect(() => {
-    router.push(pathname + "?" + createQueryString("limit", "9"));
-  }, [searchParams]);
+  // useEffect(() => {
+  //   router.push(pathname + "?" + createQueryString("limit", "9"));
+  // }, [router, pathname, createQueryString]);
 
   const { data, isLoading, isError } = useGetProductsQuery(options);
   if (isLoading) {

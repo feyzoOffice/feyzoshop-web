@@ -1,12 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Input } from "./ui/input";
 
 export function ProductFilters({
   createQueryString,
@@ -18,15 +14,21 @@ export function ProductFilters({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  let params: { value: string; key: string }[] = [];
-  searchParams.forEach((value, key) => params.push({ value, key }));
+  // let params: { value: string; key: string }[] = [];
+  // searchParams.forEach((value, key) => params.push({ value, key }));
 
   return (
-    <div className="flex flex-col">
-      <div className="flex gap-3">
-        {params?.map((param) => (
-          <h3 key={param.key}>{param.key}</h3>
-        ))}
+    <div className="flex flex-col gap-3">
+      <div className="flex justify-center items-center w-3/4">
+        <Input
+          type="search"
+          onChange={(e) => {
+            router.push(
+              pathname + "?" + createQueryString("search", e.target.value)
+            );
+          }}
+          placeholder="ابحث عن منتج..."
+        />
       </div>
       <div className="flex gap-3">
         <Button
