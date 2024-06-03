@@ -84,7 +84,7 @@ export function LoginForm() {
     }
   };
   return (
-    <Card className="w-3/4 md:w-2/4 m-5">
+    <Card className="m-5 w-3/4 md:w-2/4">
       <CardHeader>
         <CardTitle>تسجيل الدخول</CardTitle>
         <CardDescription>تسجيل الدخول إلى لوحة التحكم</CardDescription>

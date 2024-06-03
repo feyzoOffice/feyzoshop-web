@@ -38,13 +38,13 @@ export function ProductFilters({
 
   return (
     <div className="mt-3 flex flex-col items-center gap-3">
-      <div className="flex justify-center items-center w-3/4 gap-2">
+      <div className="flex w-3/4 items-center justify-center gap-2">
         <FilterDrawer />
         <Input
           type="search"
           onChange={(e) => {
             router.push(
-              pathname + "?" + createQueryString("search", e.target.value)
+              pathname + "?" + createQueryString("search", e.target.value),
             );
           }}
           placeholder="ابحث عن منتج..."
@@ -65,7 +65,7 @@ export function ProductFilters({
             <Button
               onClick={() => {
                 router.push(
-                  pathname + "?" + createQueryString("category_id", "1")
+                  pathname + "?" + createQueryString("category_id", "1"),
                 );
               }}
             >
@@ -74,7 +74,7 @@ export function ProductFilters({
             <Button
               onClick={() => {
                 router.push(
-                  pathname + "?" + createQueryString("category_id", "2")
+                  pathname + "?" + createQueryString("category_id", "2"),
                 );
               }}
             >
@@ -84,7 +84,7 @@ export function ProductFilters({
             <Button
               onClick={() => {
                 router.push(
-                  pathname + "?" + createQueryString("category_id", "3")
+                  pathname + "?" + createQueryString("category_id", "3"),
                 );
               }}
             >

@@ -11,7 +11,7 @@ const cairoPlay = Cairo_Play({ subsets: ["arabic"] });
 export function Header() {
   return (
     <div className="mt-3 flex flex-col items-center">
-      <div className="flex justify-between items-center mt-3 w-4/5 md:w-5/6">
+      <div className="mt-3 flex w-4/5 items-center justify-between md:w-5/6">
         <Link href="/">
           <div className="flex items-center gap-2">
             <div>
@@ -23,13 +23,13 @@ export function Header() {
               />
             </div>
             <h1
-              className={`hidden md:block font-bold text-lg ${cairoPlay.className}`}
+              className={`hidden text-lg font-bold md:block ${cairoPlay.className}`}
             >
               فيزو لصناعة وتجارة الألبسة
             </h1>
           </div>
         </Link>
-        <div className="flex justify-between align-middle items-center gap-3">
+        <div className="flex items-center justify-between gap-3 align-middle">
           <SignedIn>
             <UserButton />
           </SignedIn>

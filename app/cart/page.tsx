@@ -49,16 +49,16 @@ export default function ShoppingCart() {
     }
   };
   return (
-    <div className="flex flex-col items-center h-full">
+    <div className="flex h-full flex-col items-center">
       <h1>سلة التسوق</h1>
-      <div className="flex flex-col gap-3 ">
+      <div className="flex flex-col gap-3">
         {cartItems.length >= 1 ? (
           cartItems.map((i: any) => (
             <div
               key={i.id}
-              className="flex justify-between items-center gap-3 p-3 border-b border-gray-400 dark:border-gray-800"
+              className="flex items-center justify-between gap-3 border-b border-gray-400 p-3 dark:border-gray-800"
             >
-              <div className="flex justify-start items-center text-wrap gap-3 w-3/4">
+              <div className="flex w-3/4 items-center justify-start gap-3 text-wrap">
                 <div>
                   <Image src={i.image} width={50} height={50} alt={i.title} />
                 </div>
@@ -89,8 +89,8 @@ export default function ShoppingCart() {
             </div>
           ))
         ) : (
-          <div className="flex flex-col justify-center items-center h-screen text-orange-400">
-            <div className="flex flex-col justify-center items-center gap-5 p-10 border border-orange-400 rounded-md">
+          <div className="flex h-screen flex-col items-center justify-center text-orange-400">
+            <div className="flex flex-col items-center justify-center gap-5 rounded-md border border-orange-400 p-10">
               <ShieldAlert />
               السلة فارغة
             </div>

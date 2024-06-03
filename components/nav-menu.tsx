@@ -14,7 +14,7 @@ export function NavMenu() {
   const isClient = session?.user.unsafeMetadata.role === "client";
   return (
     <NavigationMenu>
-      <NavigationMenuList className="flex flex-col gap-2 w-full">
+      <NavigationMenuList className="flex w-full flex-col gap-2">
         <NavigationMenuItem>
           <NavigationLink href="/">الرئيسية</NavigationLink>
         </NavigationMenuItem>

@@ -11,7 +11,7 @@ export function ShoppingCartButton() {
   return (
     <Link href="/cart">
       {state.cart.length > 0 && (
-        <Badge className="relative -ml-2 ">
+        <Badge className="relative -ml-2">
           {state.cart.length > 9 ? "+9" : state.cart.length}
         </Badge>
       )}

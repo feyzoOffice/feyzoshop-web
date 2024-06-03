@@ -18,7 +18,7 @@ export default function Products() {
       params.set(name, value);
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const deleteQueryString = useCallback(
@@ -27,7 +27,7 @@ export default function Products() {
       params.delete(name, value);
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const options: Options = {
@@ -58,7 +58,7 @@ export default function Products() {
       <div>
         {(data === undefined || data?.length < 1) && <div>No products</div>}
       </div>
-      <div className="grid md:grid-cols-3 gap-4 mx-10 mt-3">
+      <div className="mx-10 mt-3 grid gap-4 md:grid-cols-3">
         {(data !== null || data !== undefined) &&
           data?.map((c: any) => {
             return (

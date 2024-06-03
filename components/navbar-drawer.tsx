@@ -24,7 +24,7 @@ export function NavbarDrawer() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader className="flex flex-col justify-center items-center">
+        <DrawerHeader className="flex flex-col items-center justify-center">
           <DrawerTitle>
             <Link href="/">
               <DrawerClose>
@@ -39,7 +39,7 @@ export function NavbarDrawer() {
           </DrawerTitle>
           <DrawerDescription>فيزو لصناعة وتجارة الألبسة</DrawerDescription>
         </DrawerHeader>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <NavMenu />
         </div>
         <DrawerFooter>

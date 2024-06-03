@@ -5,7 +5,7 @@ export default function MySignUp() {
     ["role"]: "client",
   };
   return (
-    <div className="flex flex-col justify-center items-center p-5">
+    <div className="flex flex-col items-center justify-center p-5">
       <SignUp signInUrl="/sign-in" unsafeMetadata={metaData} />
     </div>
   );
