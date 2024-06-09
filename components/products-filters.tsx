@@ -1,29 +1,26 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Filter } from "lucide-react";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
-import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import {
+  addFilter,
+  deleteFilter,
+} from "@/lib/redux/slices/filters/filters-slice";
+import { Badge } from "./ui/badge";
 
-export function ProductFilters({
+export function ProductsFilters({
   createQueryString,
   deleteQueryString,
 }: {
@@ -32,14 +29,18 @@ export function ProductFilters({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // let params: { value: string; key: string }[] = [];
   // searchParams.forEach((value, key) => params.push({ value, key }));
 
   return (
     <div className="mt-3 flex flex-col items-center gap-3">
       <div className="flex w-3/4 items-center justify-center gap-2">
-        <FilterDrawer />
+        <FilterDrawer
+          createQueryString={createQueryString}
+          deleteQueryString={deleteQueryString}
+        />
+
         <Input
           type="search"
           onChange={(e) => {
@@ -50,70 +51,76 @@ export function ProductFilters({
           placeholder="ابحث عن منتج..."
         />
       </div>
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
-          <AccordionTrigger>الفلاتر</AccordionTrigger>
-          <AccordionContent className="flex flex-col items-center gap-2">
-            <Button
-              variant="outline"
-              onClick={() => {
-                router.push(pathname);
-              }}
-            >
-              جميع المنتجات
-            </Button>
-            <Button
-              onClick={() => {
-                router.push(
-                  pathname + "?" + createQueryString("category_id", "1"),
-                );
-              }}
-            >
-              Category 1
-            </Button>
-            <Button
-              onClick={() => {
-                router.push(
-                  pathname + "?" + createQueryString("category_id", "2"),
-                );
-              }}
-            >
-              Category 2
-            </Button>
-
-            <Button
-              onClick={() => {
-                router.push(
-                  pathname + "?" + createQueryString("category_id", "3"),
-                );
-              }}
-            >
-              Category 3
-            </Button>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
     </div>
   );
 }
 
-const FilterDrawer = () => {
+const FilterDrawer = ({
+  createQueryString,
+  deleteQueryString,
+}: {
+  createQueryString: (name: string, value: string) => string;
+  deleteQueryString: (name: string, value: string) => string;
+}) => {
+  const state = useAppSelector((store) => store.filters);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
   return (
     <Drawer direction="right">
-      <DrawerTrigger>
+      <DrawerTrigger asChild>
         <Button variant="outline" size="icon">
+          {state.filters.length > 0 && (
+            <Badge className="relative -ml-2">
+              {state.filters.length > 9 ? "+9" : state.filters.length}
+            </Badge>
+          )}
           <Filter />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
-        </DrawerHeader>
+        <div className="flex flex-col items-start justify-center gap-2 p-3">
+          <Button
+            variant="outline"
+            onClick={() => {
+              router.push(pathname);
+            }}
+          >
+            جميع المنتجات
+          </Button>
+          <Button
+            onClick={() => {
+              router.push(
+                pathname + "?" + createQueryString("category_id", "1"),
+              );
+              dispatch(addFilter({ name: "بنطال", id: "1" }));
+            }}
+          >
+            Category 1
+          </Button>
+          <Button
+            onClick={() => {
+              router.push(
+                pathname + "?" + createQueryString("category_id", "2"),
+              );
+            }}
+          >
+            Category 2
+          </Button>
+
+          <Button
+            onClick={() => {
+              router.push(
+                pathname + "?" + createQueryString("category_id", "3"),
+              );
+            }}
+          >
+            Category 3
+          </Button>
+        </div>
         <DrawerFooter>
-          <Button>Submit</Button>
           <DrawerClose>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">رجوع</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
