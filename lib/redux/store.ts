@@ -3,10 +3,22 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { productsSlice } from "./slices/products/products-slice";
 import { cartSlice } from "./slices/cart/cart-slice";
 import { filtersSlice } from "./slices/filters/filters-slice";
+import { categoriesSlice } from "./slices/categories/categories-slice";
+import { classesSlice } from "./slices/classes/classes-slice";
+import { colorsSlice } from "./slices/colors/colors-slice";
+import { sizesSlice } from "./slices/sizes/sizes-slice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(productsSlice, cartSlice, filtersSlice);
+const rootReducer = combineSlices(
+  productsSlice,
+  cartSlice,
+  filtersSlice,
+  categoriesSlice,
+  classesSlice,
+  colorsSlice,
+  sizesSlice,
+);
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -20,7 +32,13 @@ export const makeStore = () => {
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(productsSlice.middleware);
+      return getDefaultMiddleware().concat(
+        productsSlice.middleware,
+        categoriesSlice.middleware,
+        classesSlice.middleware,
+        colorsSlice.middleware,
+        sizesSlice.middleware,
+      );
     },
   });
 };

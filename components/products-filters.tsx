@@ -13,12 +13,21 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "./ui/drawer";
+import { ScrollArea } from "./ui/scroll-area";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
   addFilter,
   deleteFilter,
 } from "@/lib/redux/slices/filters/filters-slice";
 import { Badge } from "./ui/badge";
+import { useGetCategoriesQuery } from "@/lib/redux/slices/categories/categories-slice";
+import { useGetClassesQuery } from "@/lib/redux/slices/classes/classes-slice";
+import { useGetSizesQuery } from "@/lib/redux/slices/sizes/sizes-slice";
+import { useGetColorsQuery } from "@/lib/redux/slices/colors/colors-slice";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Toggle } from "./ui/toggle";
 
 export function ProductsFilters({
   createQueryString,
@@ -62,6 +71,26 @@ const FilterDrawer = ({
   createQueryString: (name: string, value: string) => string;
   deleteQueryString: (name: string, value: string) => string;
 }) => {
+  const {
+    data: categories,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+  } = useGetCategoriesQuery({});
+  const {
+    data: classes,
+    isLoading: isLoadingClasses,
+    isError: isErrorClasses,
+  } = useGetClassesQuery({});
+  const {
+    data: sizes,
+    isLoading: isLoadingSizes,
+    isError: isErrorSizes,
+  } = useGetSizesQuery({});
+  const {
+    data: colors,
+    isLoading: isLoadingColors,
+    isError: isErrorColors,
+  } = useGetColorsQuery({});
   const state = useAppSelector((store) => store.filters);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -79,45 +108,88 @@ const FilterDrawer = ({
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="flex flex-col items-start justify-center gap-2 p-3">
-          <Button
-            variant="outline"
-            onClick={() => {
-              router.push(pathname);
-            }}
-          >
-            جميع المنتجات
-          </Button>
-          <Button
-            onClick={() => {
-              router.push(
-                pathname + "?" + createQueryString("category_id", "1"),
-              );
-              dispatch(addFilter({ name: "بنطال", id: "1" }));
-            }}
-          >
-            Category 1
-          </Button>
-          <Button
-            onClick={() => {
-              router.push(
-                pathname + "?" + createQueryString("category_id", "2"),
-              );
-            }}
-          >
-            Category 2
-          </Button>
+        <ScrollArea className="h-full w-full rounded-md border p-4" dir="rtl">
+          <div className="flex w-full flex-col gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                router.push(pathname);
+              }}
+            >
+              جميع المنتجات
+            </Button>
+            <Toggle onSelect={(e) => console.log("selected")}>
+              جميع المنتجات
+            </Toggle>
+            <Card>
+              <CardHeader>
+                <CardTitle>الفئات</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ToggleGroup type="single">
+                  {(classes !== null || classes !== undefined) &&
+                    classes?.map((cla) => (
+                      <ToggleGroupItem value={String(cla.title)} key={cla.id}>
+                        {cla.title}
+                      </ToggleGroupItem>
+                    ))}
+                </ToggleGroup>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>التصنيفات</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ToggleGroup type="single">
+                  {(categories !== null || categories !== undefined) &&
+                    categories?.map((category) => (
+                      <ToggleGroupItem
+                        value={String(category.title)}
+                        key={category.id}
+                      >
+                        {category.title}
+                      </ToggleGroupItem>
+                    ))}
+                </ToggleGroup>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>القياس</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ToggleGroup type="multiple">
+                  {(sizes !== null || sizes !== undefined) &&
+                    sizes?.map((size) => (
+                      <ToggleGroupItem value={String(size.size)} key={size.id}>
+                        {size.size}
+                      </ToggleGroupItem>
+                    ))}
+                </ToggleGroup>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>اللون</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ToggleGroup type="multiple">
+                  {(colors !== null || colors !== undefined) &&
+                    colors?.map((color) => (
+                      <ToggleGroupItem
+                        value={String(color.title)}
+                        key={color.id}
+                      >
+                        {color.title}
+                      </ToggleGroupItem>
+                    ))}
+                </ToggleGroup>
+              </CardContent>
+            </Card>
+          </div>
+        </ScrollArea>
 
-          <Button
-            onClick={() => {
-              router.push(
-                pathname + "?" + createQueryString("category_id", "3"),
-              );
-            }}
-          >
-            Category 3
-          </Button>
-        </div>
         <DrawerFooter>
           <DrawerClose>
             <Button variant="outline">رجوع</Button>
@@ -127,3 +199,33 @@ const FilterDrawer = ({
     </Drawer>
   );
 };
+
+// <Button
+//             onClick={() => {
+//               router.push(
+//                 pathname + "?" + createQueryString("category_id", "1"),
+//               );
+//               dispatch(addFilter({ name: "بنطال", id: "1" }));
+//             }}
+//           >
+//             Category 1
+//           </Button>
+//           <Button
+//             onClick={() => {
+//               router.push(
+//                 pathname + "?" + createQueryString("category_id", "2"),
+//               );
+//             }}
+//           >
+//             Category 2
+//           </Button>
+
+//           <Button
+//             onClick={() => {
+//               router.push(
+//                 pathname + "?" + createQueryString("category_id", "3"),
+//               );
+//             }}
+//           >
+//             Category 3
+//           </Button>

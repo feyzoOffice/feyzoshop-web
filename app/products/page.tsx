@@ -5,7 +5,7 @@ import { useGetProductsQuery } from "@/lib/redux/slices/products/products-slice"
 import { useCallback } from "react";
 import { Options } from "@/lib/redux/slices/products/actions";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ProductFilters } from "@/components/products-filters";
+import { ProductsFilters } from "@/components/products-filters";
 
 export default function Products() {
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function Products() {
   }
   return (
     <div>
-      <ProductFilters
+      <ProductsFilters
         createQueryString={createQueryString}
         deleteQueryString={deleteQueryString}
       />
