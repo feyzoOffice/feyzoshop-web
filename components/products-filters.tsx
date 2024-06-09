@@ -14,7 +14,8 @@ import {
   DrawerTrigger,
 } from "./ui/drawer";
 import { ScrollArea } from "./ui/scroll-area";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import {
@@ -27,7 +28,7 @@ import { useGetClassesQuery } from "@/lib/redux/slices/classes/classes-slice";
 import { useGetSizesQuery } from "@/lib/redux/slices/sizes/sizes-slice";
 import { useGetColorsQuery } from "@/lib/redux/slices/colors/colors-slice";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Toggle } from "./ui/toggle";
+import { Checkbox } from "./ui/checkbox";
 
 export function ProductsFilters({
   createQueryString,
@@ -118,22 +119,30 @@ const FilterDrawer = ({
             >
               جميع المنتجات
             </Button>
-            <Toggle onSelect={(e) => console.log("selected")}>
-              جميع المنتجات
-            </Toggle>
             <Card>
               <CardHeader>
                 <CardTitle>الفئات</CardTitle>
               </CardHeader>
               <CardContent>
-                <ToggleGroup type="single">
+                <RadioGroup defaultValue="all" dir="rtl">
+                  <div className="flex items-center gap-3 space-x-2">
+                    <RadioGroupItem value="all" id="all" />
+                    <Label htmlFor="all">الجميع</Label>
+                  </div>
                   {(classes !== null || classes !== undefined) &&
                     classes?.map((cla) => (
-                      <ToggleGroupItem value={String(cla.title)} key={cla.id}>
-                        {cla.title}
-                      </ToggleGroupItem>
+                      <div
+                        className="flex items-center gap-3 space-x-2"
+                        key={cla.id}
+                      >
+                        <RadioGroupItem
+                          value={String(cla.title)}
+                          id={String(cla.title)}
+                        />
+                        <Label htmlFor={String(cla.title)}>{cla.title}</Label>
+                      </div>
                     ))}
-                </ToggleGroup>
+                </RadioGroup>
               </CardContent>
             </Card>
             <Card>
@@ -141,17 +150,27 @@ const FilterDrawer = ({
                 <CardTitle>التصنيفات</CardTitle>
               </CardHeader>
               <CardContent>
-                <ToggleGroup type="single">
+                <RadioGroup defaultValue="all" dir="rtl">
+                  <div className="flex items-center gap-3 space-x-2">
+                    <RadioGroupItem value="all" id="all" />
+                    <Label htmlFor="all">الجميع</Label>
+                  </div>
                   {(categories !== null || categories !== undefined) &&
                     categories?.map((category) => (
-                      <ToggleGroupItem
-                        value={String(category.title)}
+                      <div
+                        className="flex items-center gap-3 space-x-2"
                         key={category.id}
                       >
-                        {category.title}
-                      </ToggleGroupItem>
+                        <RadioGroupItem
+                          value={String(category.title)}
+                          id={String(category.title)}
+                        />
+                        <Label htmlFor={String(category.title)}>
+                          {category.title}
+                        </Label>
+                      </div>
                     ))}
-                </ToggleGroup>
+                </RadioGroup>
               </CardContent>
             </Card>
             <Card>
@@ -159,14 +178,23 @@ const FilterDrawer = ({
                 <CardTitle>القياس</CardTitle>
               </CardHeader>
               <CardContent>
-                <ToggleGroup type="multiple">
+                <div className="flex flex-col gap-2">
                   {(sizes !== null || sizes !== undefined) &&
                     sizes?.map((size) => (
-                      <ToggleGroupItem value={String(size.size)} key={size.id}>
-                        {size.size}
-                      </ToggleGroupItem>
+                      <div
+                        className="flex items-center gap-3 space-x-2"
+                        key={size.id}
+                      >
+                        <Checkbox id={String(size.size)} />
+                        <label
+                          htmlFor={String(size.size)}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {size.size}
+                        </label>
+                      </div>
                     ))}
-                </ToggleGroup>
+                </div>
               </CardContent>
             </Card>
             <Card>
@@ -174,17 +202,23 @@ const FilterDrawer = ({
                 <CardTitle>اللون</CardTitle>
               </CardHeader>
               <CardContent>
-                <ToggleGroup type="multiple">
+                <div className="flex flex-col gap-2">
                   {(colors !== null || colors !== undefined) &&
                     colors?.map((color) => (
-                      <ToggleGroupItem
-                        value={String(color.title)}
+                      <div
+                        className="flex items-center gap-3 space-x-2"
                         key={color.id}
                       >
-                        {color.title}
-                      </ToggleGroupItem>
+                        <Checkbox id={String(color.title)} />
+                        <label
+                          htmlFor={String(color.title)}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {color.title}
+                        </label>
+                      </div>
                     ))}
-                </ToggleGroup>
+                </div>
               </CardContent>
             </Card>
           </div>
